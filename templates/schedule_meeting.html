@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schedule Zoom meeting invitation</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #0f1114;
+      color: #e8eaed;
+      line-height: 1.5;
+    }
+    .wrap { max-width: 520px; margin: 0 auto; }
+    h1 { font-size: 1.35rem; font-weight: 600; margin: 0 0 1.25rem; }
+    .messages { list-style: none; padding: 0; margin: 0 0 1.25rem; }
+    .messages li { padding: 0.65rem 0.85rem; border-radius: 6px; margin-bottom: 0.5rem; }
+    .messages .success { background: #143c2e; color: #a8e6c4; border: 1px solid #1f6b4a; }
+    .messages .error { background: #3c1414; color: #f0b4b4; border: 1px solid #8b2e2e; }
+    form p { margin: 0 0 1rem; }
+    label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; color: #9aa0a6; }
+    .form-control {
+      width: 100%;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid #3c4043;
+      border-radius: 6px;
+      background: #1a1d21;
+      color: #e8eaed;
+      font-size: 1rem;
+    }
+    .form-control:focus { outline: 2px solid #2d8cff; outline-offset: 1px; border-color: #2d8cff; }
+    .errorlist { color: #f28b82; font-size: 0.85rem; margin: 0.35rem 0 0; padding-left: 1.1rem; }
+    button[type="submit"] {
+      margin-top: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      background: #2d8cff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover { background: #1a7ae8; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Send Zoom meeting invitation</h1>
+
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <form method="post" action="" novalidate>
+      {% csrf_token %}
+      {% for field in form %}
+        <p>
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.errors %}
+            <ul class="errorlist">{% for err in field.errors %}<li>{{ err }}</li>{% endfor %}</ul>
+          {% endif %}
+        </p>
+      {% endfor %}
+      <button type="submit">Send invitation</button>
+    </form>
+  </div>
+</body>
+</html>
