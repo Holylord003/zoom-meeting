@@ -1,0 +1,26 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Deploy: connect repo in Render → New Blueprint Instance → select render.yaml
+
+databases:
+  - name: zoom-meeting-db
+    databaseName: zoom_meeting
+    user: zoom_meeting
+
+services:
+  - type: web
+    name: zoom-meeting
+    runtime: python
+    plan: free
+    buildCommand: chmod +x build.sh && ./build.sh
+    preDeployCommand: python manage.py migrate --no-input
+    startCommand: gunicorn zoom_meeting.wsgi:application --bind 0.0.0.0:$PORT --workers 2
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zoom-meeting-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: "3.11.6"
