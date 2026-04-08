@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,11 +124,11 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email (Zoho SMTP example — replace with your credentials; use env vars in production)
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'hart.michael@bivbuy.com.ng'
+EMAIL_HOST_USER = 'contact@z00min.my'
 EMAIL_HOST_PASSWORD = 'Sodineyeh0$$'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
